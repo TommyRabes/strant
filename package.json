@@ -4,6 +4,7 @@
   "description": "A huge catalog of dynamic web components to reuse for ease of web development",
   "main": "index.js",
   "scripts": {
+    "serve": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/TommyRabes/strant/issues"
   },
-  "homepage": "https://github.com/TommyRabes/strant#readme"
+  "homepage": "https://github.com/TommyRabes/strant#readme",
+  "devDependencies": {
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
 }
