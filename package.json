@@ -1,0 +1,20 @@
+{
+  "name": "strant",
+  "version": "1.0.0",
+  "description": "A huge catalog of dynamic web components to reuse for ease of web development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TommyRabes/strant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TommyRabes/strant/issues"
+  },
+  "homepage": "https://github.com/TommyRabes/strant#readme"
+}
