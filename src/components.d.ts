@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Item } from "./components/strant-list-item/item";
+export { Item } from "./components/strant-list-item/item";
 export namespace Components {
     interface MyComponent {
         /**
