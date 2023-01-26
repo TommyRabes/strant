@@ -1,5 +1,6 @@
 import { Component, Host, h } from '@stencil/core';
-import { State } from '@stencil/core/internal';
+import { Listen, Prop, State, Watch } from '@stencil/core/internal';
+import { StrantListItemCustomEvent } from '../../components';
 import { Item } from '../strant-list-item/item';
 
 @Component({
@@ -8,6 +9,8 @@ import { Item } from '../strant-list-item/item';
   shadow: true,
 })
 export class StrantSortedList {
+
+  @Prop() orderProp?: 'id' | 'criticality' = 'id';
 
   @State() time: number = Date.now();
 
@@ -19,13 +22,33 @@ export class StrantSortedList {
 
   componentWillLoad() {
     this.items = [
-      { id: '1', value: 'banana', criticality: 5 },
-      { id: '2', value: 'strawberry', criticality: 4 },
-      { id: '3', value: 'apple', criticality: 1 },
-      { id: '4', value: 'mango', criticality: 2 },
-      { id: '5', value: 'grape', criticality: 3 },
-      { id: '6', value: 'pineapple', criticality: 4 }
+      { id: '1', value: 'banana', criticality: 5, selected: false },
+      { id: '2', value: 'strawberry', criticality: 4, selected: false },
+      { id: '3', value: 'apple', criticality: 1, selected: false },
+      { id: '4', value: 'mango', criticality: 2, selected: false },
+      { id: '5', value: 'grape', criticality: 3, selected: false },
+      { id: '6', value: 'pineapple', criticality: 4, selected: false }
     ];
+    this.sortItems();
+  }
+
+  componentWillUpdate() {
+    console.log('Re-render scheduled in the next frame, v1');
+  }
+
+  @Listen('itemSelected')
+  selectItem({ detail: itemToSelect }: StrantListItemCustomEvent<Item>) {
+    // needs to update the reference of props in order for stencil to be able to detect changes
+    // and thus, update the component
+    this.items = this.items.map(item => {
+      // use spread operator to create a new literal object so StrantListItem components will re-render
+      return { ...item, selected: item === itemToSelect };
+    });
+  }
+
+  @Watch('orderProp')
+  sortItems() {
+    this.items = [...this.items.sort((a, b) => +a[this.orderProp] - +b[this.orderProp])];
   }
 
   render() {

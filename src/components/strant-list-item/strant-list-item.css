@@ -1,11 +1,21 @@
-span:hover {
+div:hover {
   background-color: rgba(48, 48, 48, 0.212);
 }
 
-span {
-  display: block;
+div {
+  display: flex;
   cursor: pointer;
   padding: 3px 5px 4px 5px;
   border-radius: 3px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  justify-content: space-between;
+}
+
+div.selected {
+  color: rgb(79, 95, 236);
+  background-color: rgba(80, 95, 231, 0.205);
+}
+
+div span {
+  font-weight: bold;
 }

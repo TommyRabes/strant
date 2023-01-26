@@ -13,5 +13,29 @@
     <strant-sorted-list>
       Sorted items list
     </strant-sorted-list>
+    <div style="display: flex;">
+      <strant-toggle-button id="byId" style="flex: 0 0 50%;" text="Order by id" value="id"></strant-toggle-button>
+      <strant-toggle-button id="byCriticality" style="flex: 0 0 50%;" text="Order by criticality" value="criticality"></strant-toggle-button>
+    </div>
+
+    <script type="text/javascript">
+      const list = document.querySelector('strant-sorted-list');
+
+      const idOrderer = document.getElementById('byId');
+      const criticalityOrderer = document.getElementById('byCriticality');
+
+      function selectOrder(event) {
+        const order = event.detail;
+        for (const button of [idOrderer, criticalityOrderer]) {
+          if (button.value !== order) {
+            button.active = false;
+          }
+        }
+        list.orderProp = order;
+      }
+
+      idOrderer.addEventListener('activation', selectOrder);
+      criticalityOrderer.addEventListener('activation', selectOrder);
+    </script>
   </body>
 </html>

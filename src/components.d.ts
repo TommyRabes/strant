@@ -25,7 +25,21 @@ export namespace Components {
         "item": Item;
     }
     interface StrantSortedList {
+        "orderProp"?: 'id' | 'criticality';
     }
+    interface StrantToggleButton {
+        "active": boolean;
+        "text": string;
+        "value": any;
+    }
+}
+export interface StrantListItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLStrantListItemElement;
+}
+export interface StrantToggleButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLStrantToggleButtonElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -46,10 +60,17 @@ declare global {
         prototype: HTMLStrantSortedListElement;
         new (): HTMLStrantSortedListElement;
     };
+    interface HTMLStrantToggleButtonElement extends Components.StrantToggleButton, HTMLStencilElement {
+    }
+    var HTMLStrantToggleButtonElement: {
+        prototype: HTMLStrantToggleButtonElement;
+        new (): HTMLStrantToggleButtonElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
         "strant-list-item": HTMLStrantListItemElement;
         "strant-sorted-list": HTMLStrantSortedListElement;
+        "strant-toggle-button": HTMLStrantToggleButtonElement;
     }
 }
 declare namespace LocalJSX {
@@ -69,13 +90,22 @@ declare namespace LocalJSX {
     }
     interface StrantListItem {
         "item"?: Item;
+        "onItemSelected"?: (event: StrantListItemCustomEvent<Item>) => void;
     }
     interface StrantSortedList {
+        "orderProp"?: 'id' | 'criticality';
+    }
+    interface StrantToggleButton {
+        "active"?: boolean;
+        "onActivation"?: (event: StrantToggleButtonCustomEvent<any>) => void;
+        "text": string;
+        "value": any;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
         "strant-list-item": StrantListItem;
         "strant-sorted-list": StrantSortedList;
+        "strant-toggle-button": StrantToggleButton;
     }
 }
 export { LocalJSX as JSX };
@@ -85,6 +115,7 @@ declare module "@stencil/core" {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "strant-list-item": LocalJSX.StrantListItem & JSXBase.HTMLAttributes<HTMLStrantListItemElement>;
             "strant-sorted-list": LocalJSX.StrantSortedList & JSXBase.HTMLAttributes<HTMLStrantSortedListElement>;
+            "strant-toggle-button": LocalJSX.StrantToggleButton & JSXBase.HTMLAttributes<HTMLStrantToggleButtonElement>;
         }
     }
 }
