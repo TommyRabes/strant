@@ -3,10 +3,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>&lt;my-element> Demo</title>
+    <title>&lt;strant-sorted-list> Demo</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="../my-element.js"></script>
+    <script type="module" src="../samples/my-element.js"></script>
+    <script type="module" src="../samples/lit-demo.js"></script>
+    <script type="module" src="../strant/strant-sorted-list.js"></script>
+    <script type="module" src="../strant/strant-toggle-button.js"></script>
     <style>
       p {
         border: solid 1px blue;
@@ -15,8 +18,31 @@
     </style>
   </head>
   <body>
-    <my-element>
-      <p>This is child content</p>
-    </my-element>
+    <lit-demo>Content of slot</lit-demo>
+    <strant-sorted-list></strant-sorted-list>
+    <div style="display: flex;">
+      <strant-toggle-button id="byId" style="flex: 0 0 50%;" value="id" text="Order by id"></strant-toggle-button>
+      <strant-toggle-button id="byCriticality" style="flex: 0 0 50%;" value="criticality" text="Order by criticality"></strant-toggle-button>
+    </div>
+    
+    <script type="text/javascript">
+      const list = document.querySelector('strant-sorted-list');
+
+      const idOrderer = document.getElementById('byId');
+      const criticalityOrderer = document.getElementById('byCriticality');
+
+      function selectOrder(event) {
+        const order = event.detail;
+        for (const button of [idOrderer, criticalityOrderer]) {
+          if (button.order !== order) {
+            button.active = false;
+          }
+        }
+        list.orderProp = order;
+      }
+
+      idOrderer.addEventListener('activation', selectOrder);
+      criticalityOrderer.addEventListener('activation', selectOrder);
+    </script>
   </body>
 </html>
